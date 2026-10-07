@@ -223,7 +223,7 @@ const store={get(k){try{return localStorage.getItem(k)}catch(e){return null}},se
 DOCS.forEach(d=>{const e=store.get('kb-doc-'+d.id);if(e){d.b=e;d.edited=true}});
 const $=s=>document.querySelector(s), view=$('#view');
 const esc=s=>s.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-const strip=h=>h.replace(/<[^>]+>/g,' ').replace(/\s+/g,' ').trim();
+const strip=h=>h.replace(/<\/(li|p|h3|div)>/g,'. ').replace(/<[^>]+>/g,' ').replace(/\.\s*\./g,'.').replace(/:\./g,':').replace(/\s+/g,' ').trim();
 let admin=false;
 function toast(t){const el=$('#toast');el.textContent=t;el.classList.add('is-on');clearTimeout(toast.t);toast.t=setTimeout(()=>el.classList.remove('is-on'),2200)}
 // вход
