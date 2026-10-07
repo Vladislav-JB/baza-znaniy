@@ -228,7 +228,6 @@ let admin=false;
 function toast(t){const el=$('#toast');el.textContent=t;el.classList.add('is-on');clearTimeout(toast.t);toast.t=setTimeout(()=>el.classList.remove('is-on'),2200)}
 // вход
 function enter(){$('#gate').style.display='none';$('#app').classList.add('is-on');route()}
-if(store.get('kb-auth')==='1')enter();
 $('#gateForm').addEventListener('submit',e=>{e.preventDefault();const c=$('#code');if(c.value.trim()==='2026'){store.set('kb-auth','1');enter()}else{c.classList.remove('err');void c.offsetWidth;c.classList.add('err')}});
 $('#logout').onclick=()=>{store.set('kb-auth','0');location.hash='';location.reload()};
 $('#adminBtn').onclick=()=>{admin=!admin;$('#adminBtn').setAttribute('aria-pressed',admin);toast(admin?'Режим редактора включён – откройте любой регламент':'Режим редактора выключен');route()};
@@ -274,6 +273,7 @@ function search(raw){
 let st;$('#q').addEventListener('input',e=>{clearTimeout(st);st=setTimeout(()=>search(e.target.value),150)});
 function route(){const h=location.hash.replace(/^#\/?/,'').split('/');if(h[0]==='role')role(h[1]);else if(h[0]==='doc')doc(h[1]);else home()}
 addEventListener('hashchange',()=>{$('#q').value='';route()});
+if(store.get('kb-auth')==='1')enter();
 </script>
 </body>
 </html>
